@@ -6,11 +6,7 @@
 npm install
 ```
 
-### backEnd development
-
-```
-npm run backend
-```
+### react development
 
 ### Compiles and minifies for production
 
@@ -18,8 +14,23 @@ npm run backend
 npm run build
 ```
 
+### backEnd development
+
+```
+npm run server
+```
+
+```
+npm run nodemon
+```
+
 ### Lints and fixes files
 
 ```
 npm run lint
 ```
+
+### 개발 환경
+
+-   [Chrome](https://www.google.com/intl/ko/chrome/)
+-   [webstrom]
