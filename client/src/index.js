@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import Reducer from './store/reducers/';
+import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { applyMiddleware, createStore } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+import 'antd/dist/antd.css';
+import './index.css';
+
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<Provider
+		store={createStoreWithMiddleware(
+			Reducer,
+			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+		)}>
+		<App />
+	</Provider>,
+	document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -24,6 +24,12 @@ npm run server
 npm run nodemon
 ```
 
+### concurrently
+
+```
+npm run dev
+```
+
 ### Lints and fixes files
 
 ```

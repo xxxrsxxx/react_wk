@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const port = 7000;
+const port = process.env.PORT || 7000;
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const cookieparser = require('cookie-parser');
 const config = require('./config/key');
 const { auth } = require('./middleware/auth');
@@ -9,6 +10,13 @@ const { User } = require('./models/Users');
 
 //application/x-www.form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+// cors access
+app.use(
+	cors({
+		origin: 'http://localhost:3000', // 허락하고자 하는 요청 주소
+		credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가
+	}),
+);
 //application/json
 app.use(bodyParser.json());
 app.use(cookieparser());
@@ -24,6 +32,7 @@ mongoose
 	.catch(err => console.log('err'));
 
 app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/api/testUrl', (req, res) => res.send('procy test'));
 
 app.post('/api/users/register', (req, res) => {
 	//bodyParser 통해 파싱
