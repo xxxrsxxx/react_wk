@@ -30,3 +30,12 @@ function Test(props) {
 }
 
 export default Test;
+
+//rsc
+import React from 'react';
+
+const Test = () => {
+	return <div></div>;
+};
+
+export default Test;
