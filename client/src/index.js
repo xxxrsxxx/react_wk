@@ -1,13 +1,20 @@
+import 'react-app-polyfill/ie9';
+import 'react-app-polyfill/ie11';
+import 'core-js';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Reducer from './store/reducers/';
-import { Provider } from 'react-redux';
-import App from './App';
+
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom';
 
 import { applyMiddleware, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import Reducer from './store/reducers/';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+
 import 'antd/dist/antd.css';
 import './index.css';
 
@@ -18,7 +25,9 @@ ReactDOM.render(
 			Reducer,
 			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 		)}>
-		<App />
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root'),
 );
