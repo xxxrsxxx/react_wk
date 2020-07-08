@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import { auth } from '/store/actions/userAction/userAction';
+import { auth } from '../store/actions/userAction/userAction';
 
 const Auth = (SpecificComponent, option, adminRoute = null) => {
 	//null    =>  아무나 출입이 가능한 페이지

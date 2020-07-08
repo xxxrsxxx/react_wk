@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { registerUser } from '/store/actions/userAction/userAction';
+import { registerUser } from '../../../store/actions/userAction/userAction';
 import { useDispatch } from 'react-redux';
 
 import { Form, Input, Button } from 'antd';

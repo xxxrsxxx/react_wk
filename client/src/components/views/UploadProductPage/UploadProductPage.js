@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 const UploadProductPage = () => {
-	return <div></div>;
+	return <div>UploadProductPage</div>;
 };
 
-export default UploadProductPage;
+export default withRouter(UploadProductPage);

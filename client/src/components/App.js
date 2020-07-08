@@ -6,7 +6,7 @@ import LoginPage from './views/loginPage/LoginPage';
 import RegisterPage from './views/registerPage/RegisterPage';
 import NavBar from './views/navBar/NavBar';
 import Footer from './views/footer/Footer';
-import UploadProductPage from './views/UploadProductPage/UploadProductPage';
+import UploadProductPage from '../components/views/UploadProductPage/UploadProductPage';
 
 import Auth from '../hoc/auth';
 

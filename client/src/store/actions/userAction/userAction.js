@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from '../types';
-import { USER_SERVER } from '/api/config';
+import { USER_SERVER } from '../../../api/config';
 
 export function registerUser(dataToSubmit) {
 	const request = axios

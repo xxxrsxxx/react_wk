@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { loginUser } from '/store/actions/userAction/userAction';
+import { loginUser } from '../../../store/actions/userAction/userAction';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup'; // validationSchema library
