@@ -25,13 +25,6 @@ const connect = mongoose
 	.then(() => console.log('MongoDB Connected...'))
 	.catch(err => console.log(err));
 
-app.use(
-	cors({
-		origin: 'http://localhost:3000',
-		credentials: true,
-	}),
-);
-
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,6 +51,13 @@ if (process.env.NODE_ENV === 'production') {
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
 	});
+} else {
+	app.use(
+		cors({
+			origin: 'http://localhost:3000',
+			credentials: true,
+		}),
+	);
 }
 
 const port = process.env.PORT || 7000;
