@@ -2,7 +2,7 @@
 	"name": "react",
 	"version": "1.0.0",
 	"description": "react first working",
-	"main": "server/index.js",
+	"main": "index.js",
 	"engine": {
 		"node": "12.18.2",
 		"npm": "6.14.5"
