@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
 	// 	res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
 	// });
 	app.get('*', (_, res) => {
-		res.sendFile(path.join(__dirname, './client/build/index.html'), err => {
+		res.sendFile(path.join(__dirname, '../client/build/index.html'), err => {
 			if (err) {
 				res.status(500).send(err);
 			}
