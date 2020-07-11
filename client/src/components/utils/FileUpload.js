@@ -38,6 +38,7 @@ const FileUpload = () => {
 							height: 240,
 							border: '1px solid lightgray',
 							display: 'flex',
+							flex: 1,
 							alignItems: 'center',
 							justifyContent: 'center',
 						}}
@@ -50,6 +51,7 @@ const FileUpload = () => {
 			<div
 				style={{
 					display: 'flex',
+					flex: 1,
 					width: '350px',
 					height: '240px',
 					overflowX: 'scroll',

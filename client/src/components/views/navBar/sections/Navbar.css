@@ -71,16 +71,17 @@
 		display: none;
 	}
 
+	.menu__logo {
+		height: 48px;
+	}
 	.menu__logo a {
+		width: 108px;
 		margin-left: -20px;
+		padding: 0 20px;
 	}
 
 	.menu__container .ant-menu-item,
 	.menu__container .ant-menu-submenu-title {
 		padding: 1px 20px;
-	}
-
-	.menu__logo a {
-		padding: 10px 20px;
 	}
 }
