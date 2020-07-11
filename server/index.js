@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'production') {
 
 	//index.html for all page routes    html or routing and naviagtion
 	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname, 'build', 'index.html'), err => {
+		res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'), err => {
 			if (err) {
 				res.status(500).send(err);
 			}
