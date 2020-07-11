@@ -2,7 +2,7 @@
 import React from 'react';
 import { Menu } from 'antd';
 import axios from 'axios';
-import { USER_SERVER } from '../../../../api/config';
+import { USER_SERVER } from 'api/config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

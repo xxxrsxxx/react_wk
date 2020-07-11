@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react';
-import logo from '../assets/images/logo.svg';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LandingPage from './views/landingPage/LandingPage';
 import LoginPage from './views/loginPage/LoginPage';
 import RegisterPage from './views/registerPage/RegisterPage';
 import NavBar from './views/navBar/NavBar';
 import Footer from './views/footer/Footer';
-import UploadProductPage from '../components/views/UploadProductPage/UploadProductPage';
+import UploadProductPage from 'components/views/UploadProductPage/UploadProductPage';
 
 import Auth from '../hoc/auth';
 
