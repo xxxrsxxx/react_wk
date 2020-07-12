@@ -26,7 +26,6 @@ const LandingPage = props => {
 			}
 		});
 	};
-	console.log('LandingPage', props);
 	return (
 		<>
 			<div className="app">
