@@ -18,8 +18,10 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single('file');
 router.post('/image', (req, res) => {
+	console.log('product/image', req, res);
 	//가져온 이미지 저장
 	upload(req, res, err => {
+		console.log('uploadFn', req, res, err);
 		if (err) {
 			return req.json({ success: false, err });
 		}
