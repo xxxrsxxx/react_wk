@@ -12,15 +12,17 @@ const FileUpload = () => {
 			header: { 'content-type': 'multipart/form-data' },
 		};
 		formData.append('file', file[0]);
-		axios.post('/api/product/image', formData, config).then(res => {
-			console.log('fileUploadApi', res);
-			if (res.data.success) {
-				//Images 값 복제
-				setImages([...Images, res.data.filePath]);
-			} else {
-				alert('file error');
-			}
-		});
+		axios
+			.post('/api/product/image', formData, config)
+			.then(res => {
+				if (res.data.success) {
+					//Images 값 복제
+					setImages([...Images, res.data.filePath]);
+				} else {
+					alert('file error');
+				}
+			})
+			.catch(err => console.log('err', err));
 	};
 	const deleteHandler = (img, index) => {
 		const currentIndex = Images.indexOf(img);
