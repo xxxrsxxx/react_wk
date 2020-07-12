@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const RightMenu = props => {
-	const user = useSelector(state => state.user);
+	const storeState = useSelector(state => state);
 
 	const logoutHandler = () => {
 		axios.get(`${USER_SERVER}/logout`).then(response => {
@@ -18,25 +18,24 @@ const RightMenu = props => {
 			}
 		});
 	};
-
-	if (user.userData && !user.userData.isAuth) {
+	if (storeState.user.userData && !storeState.user.userData.isAuth) {
 		return (
 			<Menu mode={props.mode}>
-				<Menu.Item key="mail">
-					<a href="/login">Signin</a>
+				<Menu.Item key='mail'>
+					<a href='/login'>Signin</a>
 				</Menu.Item>
-				<Menu.Item key="app">
-					<a href="/register">Signup</a>
+				<Menu.Item key='app'>
+					<a href='/register'>Signup</a>
 				</Menu.Item>
 			</Menu>
 		);
 	} else {
 		return (
 			<Menu mode={props.mode}>
-				<Menu.Item key="upload">
-					<a href="/product/upload">Upload</a>
+				<Menu.Item key='upload'>
+					<a href='/product/upload'>Upload</a>
 				</Menu.Item>
-				<Menu.Item key="logout">
+				<Menu.Item key='logout'>
 					<a onClick={logoutHandler}>Logout</a>
 				</Menu.Item>
 			</Menu>
