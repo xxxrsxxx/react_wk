@@ -24,12 +24,12 @@ function App() {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
 			<NavBar />
-			<div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
+			<div style={{ paddingTop: '49px', minHeight: 'calc(100vh - 80px)' }}>
 				<Switch>
-					<Route exact path="/" component={Auth(LandingPage, null)} />
-					<Route exact path="/login" component={Auth(LoginPage, false)} />
-					<Route exact path="/register" component={Auth(RegisterPage, false)} />
-					<Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
+					<Route exact path='/' component={Auth(LandingPage, null)} />
+					<Route exact path='/login' component={Auth(LoginPage, false)} />
+					<Route exact path='/register' component={Auth(RegisterPage, false)} />
+					<Route exact path='/product/upload' component={Auth(UploadProductPage, true)} />
 				</Switch>
 			</div>
 			<Footer />

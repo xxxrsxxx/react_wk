@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Icon } from 'antd';
-import axios from 'axios';
+import { PRODUCT_SERVER } from 'api/config';
+import { postApi } from 'api/index';
 
-const FileUpload = () => {
-	const BaseUrl = process.env.REACT_APP_API_URL;
+const FileUpload = props => {
 	const [Images, setImages] = useState([]);
 	const dropHandler = file => {
 		let formData = new FormData();
@@ -12,12 +12,12 @@ const FileUpload = () => {
 			header: { 'content-type': 'multipart/form-data' },
 		};
 		formData.append('file', file[0]);
-		axios
-			.post('/api/product/image', formData, config)
+		postApi(`${PRODUCT_SERVER}/image`, formData, config)
 			.then(res => {
 				if (res.data.success) {
-					//Images 값 복제
+					//Images value clone
 					setImages([...Images, res.data.filePath]);
+					props.refreshFunction([...Images, res.data.filePath]);
 				} else {
 					alert('file error');
 				}
@@ -26,10 +26,11 @@ const FileUpload = () => {
 	};
 	const deleteHandler = (img, index) => {
 		const currentIndex = Images.indexOf(img);
-		console.log('deleteImg', Images, img, index, currentIndex);
+		//console.log('deleteImg', Images, img, index, currentIndex);
 		let newImages = [...Images];
 		newImages.splice(currentIndex, 1);
 		setImages(newImages);
+		props.refreshFunction(newImages);
 	};
 	return (
 		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -47,7 +48,7 @@ const FileUpload = () => {
 						}}
 						{...getRootProps()}>
 						<input {...getInputProps()} />
-						<Icon type="plus" style={{ fontSize: '3rem' }}></Icon>
+						<Icon type='plus' style={{ fontSize: '3rem' }}></Icon>
 					</div>
 				)}
 			</Dropzone>
@@ -63,8 +64,8 @@ const FileUpload = () => {
 					<div onClick={() => deleteHandler(img, index)} key={index}>
 						<img
 							style={{ minWidth: '300px', width: '300px', height: '240px' }}
-							src={`${BaseUrl}${img}`}
-							alt="#"
+							src={`/${img}`}
+							alt='#'
 						/>
 					</div>
 				))}

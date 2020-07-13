@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 const RightMenu = props => {
 	const storeState = useSelector(state => state);
+	const admin = storeState.user.userData ? storeState.user.userData.isAdmin : false;
 
 	const logoutHandler = () => {
 		axios.get(`${USER_SERVER}/logout`).then(response => {
@@ -22,19 +23,21 @@ const RightMenu = props => {
 		return (
 			<Menu mode={props.mode}>
 				<Menu.Item key='mail'>
-					<a href='/login'>Signin</a>
+					<a href='/login'>SignIn</a>
 				</Menu.Item>
 				<Menu.Item key='app'>
-					<a href='/register'>Signup</a>
+					<a href='/register'>SignUp</a>
 				</Menu.Item>
 			</Menu>
 		);
 	} else {
 		return (
 			<Menu mode={props.mode}>
-				<Menu.Item key='upload'>
-					<a href='/product/upload'>Upload</a>
-				</Menu.Item>
+				{admin == true && (
+					<Menu.Item key='upload'>
+						<a href='/product/upload'>Upload</a>
+					</Menu.Item>
+				)}
 				<Menu.Item key='logout'>
 					<a onClick={logoutHandler}>Logout</a>
 				</Menu.Item>

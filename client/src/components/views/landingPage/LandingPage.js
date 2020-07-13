@@ -1,40 +1,44 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { PRODUCT_SERVER } from 'api/config';
+import { getApi, postApi } from 'api/index';
 
-import { FaCode } from 'react-icons/fa';
-import { withRouter } from 'react-router-dom';
+import ImageSlider from 'components/utils/ImageSlider';
+
+import { Icon, Col, Card, Row } from 'antd';
+import Meta from 'antd/lib/card/Meta';
 
 const LandingPage = props => {
-	console.log('process', process, process.env);
+	const [PrdList, setPrdList] = useState([]);
 	useEffect(() => {
-		// fetch('/api/test', {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// }).then(response => {
-		// 	console.log('cors test', response);
-		// });
+		postApi(`${PRODUCT_SERVER}/products`).then(res => {
+			console.log('Products IMG', res.data);
+			setPrdList(res.data.productsInfo);
+		});
 	}, []);
 
-	const onClickHandler = () => {
-		axios.get(`/api/users/logout`).then(response => {
-			if (response.data.success) {
-				props.history.push('/login');
-			} else {
-				alert('로그아웃 failed');
-			}
-		});
-	};
+	const renderPrd = PrdList.map((prd, idx) => {
+		return (
+			<Col lg={6} sm={12} md={12} xs={24} key={idx}>
+				<Card cover={<ImageSlider setData={prd}></ImageSlider>}>
+					<Meta title={prd.title} description={`$${prd.price}`}></Meta>
+				</Card>
+			</Col>
+		);
+	});
 	return (
-		<>
-			<div className="app">
-				<FaCode style={{ fontSize: '4rem' }} />
-				<br />
-				<span style={{ fontSize: '2rem' }}>Start Point</span>
+		<div style={{ width: '75%', margin: '3rem auto' }}>
+			<div style={{ textAlign: 'center' }}>
+				<h2>Top</h2>
 			</div>
-		</>
+			{/* Filter*/}
+			{/*Search*/}
+			{/*Cards*/}
+			<Row gutter={[16, 16]}>{renderPrd}</Row>
+			<div style={{ justifyContent: 'center' }}>
+				<button>더보기</button>
+			</div>
+		</div>
 	);
 };
 
-export default withRouter(LandingPage);
+export default LandingPage;
