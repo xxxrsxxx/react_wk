@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { uiState } from 'store/actions/uiAction/uiAction';
@@ -23,7 +23,7 @@ function App() {
 	}, []);
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<NavBar />
+			{/*<NavBar></NavBar>*/}
 			<div style={{ paddingTop: '49px', minHeight: 'calc(100vh - 80px)' }}>
 				<Switch>
 					<Route exact path='/' component={Auth(LandingPage, null)} />
