@@ -34,12 +34,11 @@ const LandingPage = props => {
 
 	const getProducts = config => {
 		postApi(`${PRODUCT_SERVER}/products`, config).then(res => {
+			console.log('get', LoadPrdConfig);
 			if (LoadPrdConfig.loadMore) setPrdList([...PrdList, ...res.data.productsInfo]);
 			else setPrdList(res.data.productsInfo);
-			console.log('API', res.data, '/n', LoadPrdConfig);
 			setPostSize(res.data.postSize);
 		});
-		console.log('get', LoadPrdConfig);
 	};
 	const loadMoreHandler = () => {
 		let skipIdx = LoadPrdConfig.skip + LoadPrdConfig.limit;

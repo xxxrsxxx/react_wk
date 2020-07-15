@@ -5,9 +5,10 @@ import RightMenu from './sections/RightMenu';
 import { Drawer, Button, Icon } from 'antd';
 
 import './sections/Navbar.css';
+import { useSelector } from 'react-redux';
 const NavBar = () => {
 	const [visible, setVisible] = useState(false);
-
+	const member = useSelector(state => state.user.userData);
 	const showDrawer = () => {
 		setVisible(true);
 	};
@@ -17,7 +18,9 @@ const NavBar = () => {
 	};
 
 	return (
-		<nav className='menu' style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
+		<nav
+			className='menu'
+			style={{ position: 'fixed', width: '100%', overflow: 'initial', zIndex: 5 }}>
 			<div className='menu__logo'>
 				<a href='/'>
 					<img src={logo} alt='#' />
@@ -27,7 +30,7 @@ const NavBar = () => {
 				<div className='menu_left'>
 					<LeftMenu mode='horizontal' />
 				</div>
-				<div className='menu_rigth'>
+				<div className='menu_right'>
 					<RightMenu mode='horizontal' />
 				</div>
 				<Button className='menu__mobile-button' type='primary' onClick={showDrawer}>
@@ -44,6 +47,11 @@ const NavBar = () => {
 					<RightMenu mode='inline' />
 				</Drawer>
 			</div>
+			{member && member.name && (
+				<div className='user_info'>
+					<p style={{ margin: 0 }}>{member.name}님</p>
+				</div>
+			)}
 		</nav>
 	);
 };

@@ -39,7 +39,7 @@
 	float: left;
 }
 
-.menu__container .menu_rigth {
+.menu__container .menu_right {
 	float: right;
 }
 
@@ -61,14 +61,21 @@
 .menu_drawer .ant-drawer-header {
 	padding: 14px 24px !important;
 }
-
+.user_info {
+	position: absolute;
+	bottom: -24px;
+	right: 35px;
+}
+.container {
+	padding-top: 68px;
+}
 @media (max-width: 767px) {
 	.menu__mobile-button {
 		display: inline-block !important;
 	}
 
 	.menu_left,
-	.menu_rigth {
+	.menu_right {
 		display: none;
 	}
 
@@ -84,5 +91,11 @@
 	.menu__container .ant-menu-item,
 	.menu__container .ant-menu-submenu-title {
 		padding: 1px 20px;
+	}
+	.user_info {
+		right: 20px;
+	}
+	.container {
+		padding-top: 49px;
 	}
 }
