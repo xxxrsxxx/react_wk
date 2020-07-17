@@ -14,21 +14,24 @@ import { options, price } from './sections/Datas';
 const LandingPage = props => {
 	const [PrdList, setPrdList] = useState([]); // product list
 
-	const [LoadPrdConfig, setLoadPrdData] = useState({
+	// 상품 로드 정보
+	const [LoadPrdConfig, setLoadPrdConfig] = useState({
 		skip: 0,
 		limit: 4,
 		loadMore: false,
 		filters: {},
 		searchTerm: '',
 	});
-
+	// 필터 타입 정보
 	const [Filters, setFilters] = useState({
 		option: [],
 		price: [],
 	});
-
-	const [LoadPrd, setLoadPrd] = useState(false); // product load state
-	const [PostSize, setPostSize] = useState(0); // products res data length
+	// 상품 로드 상태
+	const [LoadPrdState, setLoadPrdState] = useState({
+		loadState: false,
+		PostSize: 0,
+	});
 
 	useEffect(() => {
 		let config = {
@@ -39,23 +42,41 @@ const LandingPage = props => {
 
 	const getProducts = config => {
 		postApi(`${PRODUCT_SERVER}/products`, config).then(res => {
-			console.log('get', LoadPrdConfig);
+			console.log('api logic', LoadPrdConfig);
 			if (LoadPrdConfig.loadMore) setPrdList([...PrdList, ...res.data.productsInfo]);
 			else setPrdList(res.data.productsInfo);
-			setLoadPrd(true);
-			setPostSize(res.data.postSize);
+
+			setLoadPrdState({
+				loadState: true,
+				PostSize: res.data.postSize,
+			});
 		});
 	};
-	const loadMoreHandler = () => {
-		let skipIdx = LoadPrdConfig.skip + LoadPrdConfig.limit;
 
-		let config = {
-			skip: skipIdx,
-			limit: LoadPrdConfig.limit,
-			loadMore: true,
+	const loadProduct = (type, param) => {
+		const config = {
+			skip: 0,
+			limit: 4,
+			loadMore: false,
+			filters: {},
+			searchTerm: '',
 		};
-		setLoadPrdData({ ...LoadPrdConfig, ...config });
+		switch (type) {
+			case 'loadMoreResults':
+				let skipIdx = LoadPrdConfig.skip + LoadPrdConfig.limit;
+				config.skip = skipIdx;
+				config.loadMore = true;
+				break;
+			case 'loadFilterResults':
+				config.filters = param;
+				break;
+			case 'updateSearchTerm':
+				config.searchTerm = param;
+				break;
+		}
+		setLoadPrdConfig({ ...LoadPrdConfig, ...config });
 	};
+
 	const handlePrice = value => {
 		const data = price;
 		let array = [];
@@ -66,6 +87,7 @@ const LandingPage = props => {
 		}
 		return array;
 	};
+
 	const handleFilters = (filters, key) => {
 		const newFilters = { ...Filters };
 		newFilters[key] = filters;
@@ -73,45 +95,8 @@ const LandingPage = props => {
 			let priceValues = handlePrice(filters);
 			newFilters[key] = priceValues;
 		}
-		loadFilterResults(newFilters);
 		setFilters(newFilters);
-	};
-	const loadFilterResults = filters => {
-		let config = {
-			skip: 0,
-			limit: LoadPrdConfig.limit,
-			loadMore: false,
-			filters: filters,
-		};
-		setLoadPrdData({ ...LoadPrdConfig, ...config });
-	};
-	const updateSearchTerm = param => {
-		const config = {
-			skip: 0,
-			limit: LoadPrdConfig.limit,
-			loadMore: false,
-			filters: LoadPrdConfig.filters,
-			searchTerm: param,
-		};
-		setLoadPrdData({ ...LoadPrdConfig, ...config });
-	};
-
-	const loadProduct = type => {
-		const config = {
-			skip: 0,
-			limit: 4,
-			loadMore: false,
-			filters: {},
-			searchTerm: '',
-		};
-		switch (type) {
-			case 'loadFilterResults':
-				break;
-			case 'updateSearchTerm':
-
-				break;
-		}
-		setLoadPrdData({ ...LoadPrdConfig, ...config });
+		loadProduct('loadFilterResults', newFilters);
 	};
 
 	const renderPrd = PrdList.map((prd, idx) => {
@@ -126,7 +111,7 @@ const LandingPage = props => {
 	return (
 		<div style={{ width: '75%', margin: '3rem auto' }}>
 			<div style={{ textAlign: 'center' }}>
-				<h2>Main Contents</h2>
+				<h2>Main Contents Page</h2>
 			</div>
 			{/* Filter*/}
 			<Row gutter={[16, 16]}>
@@ -145,9 +130,11 @@ const LandingPage = props => {
 			</Row>
 			{/*Search*/}
 			<div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
-				<SearchFeature refreshFunction={updateSearchTerm} />
+				<SearchFeature
+					refreshFunction={search => loadProduct('updateSearchTerm', search)}
+				/>
 			</div>
-			{LoadPrd ? (
+			{LoadPrdState.loadState ? (
 				<div>
 					{/*Cards*/}
 					{PrdList.length > 0 ? (
@@ -156,9 +143,9 @@ const LandingPage = props => {
 						<p>Product does not exist.</p>
 					)}
 
-					{PostSize >= LoadPrdConfig.limit && (
+					{LoadPrdState.PostSize >= LoadPrdConfig.limit && (
 						<div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-							<button onClick={loadMoreHandler}>더보기</button>
+							<button onClick={() => loadProduct('loadMoreResults')}>더보기</button>
 						</div>
 					)}
 				</div>

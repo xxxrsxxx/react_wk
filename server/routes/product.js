@@ -46,7 +46,7 @@ router.post('/products', (req, res) => {
 	let limit = req.body.limit ? parseInt(req.body.limit) : 20;
 	let skip = req.body.skip ? parseInt(req.body.skip) : 0;
 	let _filter = false; // filter 조작 여부
-	let term = req.body.searchTerm ? { $text: { $search: req.body.searchTerm } } : {};
+	let searchTerm = req.body.searchTerm ? { $text: { $search: req.body.searchTerm } } : {};
 	let findArgs = {};
 	for (let key in req.body.filters) {
 		if (req.body.filters[key].length > 0) {
@@ -63,9 +63,8 @@ router.post('/products', (req, res) => {
 			_filter = true;
 		}
 	}
-	console.log('findArgs', findArgs);
 	Product.find(findArgs)
-		.find(term)
+		.find(searchTerm)
 		.populate('writer')
 		.skip(skip)
 		.limit(limit)

@@ -24,7 +24,7 @@ const CheckBox = props => {
 	return (
 		<div>
 			<Collapse defaultActiveKey={['1']}>
-				<Panel header='This is panel header 1' key='2'>
+				<Panel header='option filter' key='2'>
 					{renderCheckBox()}
 				</Panel>
 			</Collapse>
