@@ -68,7 +68,6 @@ const LandingPage = props => {
 				config.loadMore = true;
 				break;
 			case 'loadFilterResults':
-				console.log('switch', param);
 				config.filters = param;
 				break;
 			case 'updateSearchTerm':
