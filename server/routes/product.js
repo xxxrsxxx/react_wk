@@ -46,15 +46,26 @@ router.post('/products', (req, res) => {
 	let limit = req.body.limit ? parseInt(req.body.limit) : 20;
 	let skip = req.body.skip ? parseInt(req.body.skip) : 0;
 	let _filter = false; // filter 조작 여부
+	let term = req.body.searchTerm ? { $text: { $search: req.body.searchTerm } } : {};
 	let findArgs = {};
 	for (let key in req.body.filters) {
 		if (req.body.filters[key].length > 0) {
-			findArgs[key] = req.body.filters[key];
+			if (key === 'price') {
+				findArgs[key] = {
+					//Greater than equal
+					$gte: req.body.filters[key][0],
+					//Less than equal
+					$lte: req.body.filters[key][1],
+				};
+			} else {
+				findArgs[key] = req.body.filters[key];
+			}
 			_filter = true;
 		}
 	}
-	//console.log('findArgs', findArgs);
+	console.log('findArgs', findArgs);
 	Product.find(findArgs)
+		.find(term)
 		.populate('writer')
 		.skip(skip)
 		.limit(limit)
