@@ -78,5 +78,21 @@ router.post('/products', (req, res) => {
 			});
 		});
 });
+router.get('/productView', (req, res) => {
+	let type = req.query.type;
+	let productId = req.query.id;
+
+	console.log('backEnd Product query', type, productId);
+
+	Product.find({ _id: productId })
+		.populate('writer')
+		.exec((err, product) => {
+			if (err) return res.status(400).send(err);
+			return res.status(200).send({
+				success: true,
+				product,
+			});
+		});
+});
 
 module.exports = router;

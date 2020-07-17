@@ -102,7 +102,12 @@ const LandingPage = props => {
 	const renderPrd = PrdList.map((prd, idx) => {
 		return (
 			<Col lg={6} sm={12} md={12} xs={24} key={idx}>
-				<Card cover={<ImageSlider setData={prd}></ImageSlider>}>
+				<Card
+					cover={
+						<a href={`/product/productView/${prd._id}`}>
+							<ImageSlider setData={prd}></ImageSlider>
+						</a>
+					}>
 					<Meta title={prd.title} description={`$${prd.price}`}></Meta>
 				</Card>
 			</Col>

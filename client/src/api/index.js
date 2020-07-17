@@ -19,7 +19,7 @@ async function postApi(url, data, config) {
 }
 async function getApi(url, data, config) {
 	try {
-		const res = await instance.post(url, data, config);
+		const res = await instance.get(url, data, config);
 		return res;
 	} catch (e) {
 		console.log('postApi error', e);

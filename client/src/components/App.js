@@ -11,8 +11,10 @@ import NavBar from './views/navBar/NavBar';
 import Footer from './views/footer/Footer';
 
 import UploadProductPage from 'components/views/uploadProductPage/UploadProductPage';
+import ProductDetailPage from './views/productDetailPage/productDetailPage';
 
 import Auth from '../hoc/auth';
+
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -30,6 +32,11 @@ function App() {
 					<Route exact path='/login' component={Auth(LoginPage, false)} />
 					<Route exact path='/register' component={Auth(RegisterPage, false)} />
 					<Route exact path='/product/upload' component={Auth(UploadProductPage, true)} />
+					<Route
+						exact
+						path='/product/productView/:productId'
+						component={Auth(ProductDetailPage, null)}
+					/>
 				</Switch>
 			</div>
 			<Footer />
