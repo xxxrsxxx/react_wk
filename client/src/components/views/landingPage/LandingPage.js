@@ -17,7 +17,7 @@ const LandingPage = props => {
 	// 상품 로드 정보
 	const [LoadPrdConfig, setLoadPrdConfig] = useState({
 		skip: 0,
-		limit: 4,
+		limit: 8,
 		loadMore: false,
 		filters: {},
 		searchTerm: '',
@@ -42,7 +42,7 @@ const LandingPage = props => {
 
 	const getProducts = config => {
 		postApi(`${PRODUCT_SERVER}/products`, config).then(res => {
-			console.log('api logic', LoadPrdConfig);
+			console.log('api logic\n', LoadPrdConfig, '\n', res.data);
 			if (LoadPrdConfig.loadMore) setPrdList([...PrdList, ...res.data.productsInfo]);
 			else setPrdList(res.data.productsInfo);
 
@@ -56,10 +56,10 @@ const LandingPage = props => {
 	const loadProduct = (type, param) => {
 		const config = {
 			skip: 0,
-			limit: 4,
+			limit: LoadPrdConfig.limit,
 			loadMore: false,
-			filters: {},
-			searchTerm: '',
+			filters: LoadPrdConfig.filters,
+			searchTerm: LoadPrdConfig.searchTerm,
 		};
 		switch (type) {
 			case 'loadMoreResults':
@@ -68,6 +68,7 @@ const LandingPage = props => {
 				config.loadMore = true;
 				break;
 			case 'loadFilterResults':
+				console.log('switch', param);
 				config.filters = param;
 				break;
 			case 'updateSearchTerm':
