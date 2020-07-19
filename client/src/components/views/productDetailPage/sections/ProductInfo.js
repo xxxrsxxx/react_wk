@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Descriptions } from 'antd';
 
 const ProductInfo = props => {
+	console.log('ProductInfo Props', props);
 	const clickHandler = () => {
 		console.log('add to cart');
 	};

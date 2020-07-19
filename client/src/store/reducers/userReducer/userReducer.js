@@ -12,7 +12,7 @@ export default function (state = {}, action) {
 			return { ...state, userData: action.payload };
 			break;
 		case LOGOUT_USER:
-			return { ...state };
+			return { ...state, logoutSuccess: action.payload };
 		default:
 			return state;
 	}
