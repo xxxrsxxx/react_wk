@@ -1,3 +1,4 @@
+@import '~react-image-gallery/styles/css/image-gallery.css';
 * {
 	padding: 0;
 	margin: 0;
@@ -42,4 +43,9 @@ input.error {
 	color: red;
 	height: 5px;
 	margin-top: -12px;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+	padding-top: 4px;
+	padding-bottom: 4px;
 }

@@ -6,3 +6,8 @@ export const LOGOUT_USER = 'logout_user';
 
 // ui type
 export const UI_STATE = 'ui_state';
+
+// cart type
+export const ADD_TO_CART = 'add_to_cart';
+export const GET_CART_ITEMS = 'get_cart_items';
+export const REMOVE_CART_ITEM = 'remove_cart_item';

@@ -119,7 +119,7 @@ const LandingPage = props => {
 				<h2>Main Contents Page</h2>
 			</div>
 			{/* Filter*/}
-			<Row gutter={[16, 16]}>
+			<Row gutter={[16, 0]}>
 				<Col lg={12} xs={24}>
 					<CheckBox
 						list={options}
