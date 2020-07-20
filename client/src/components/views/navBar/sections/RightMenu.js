@@ -12,6 +12,7 @@ const RightMenu = props => {
 	const logoutHandler = () => {
 		dispatch(logoutUser()).then(res => {
 			if (res.payload.success) {
+				window.localStorage.removeItem('userId');
 				props.history.push('/login');
 			} else {
 				alert('Log Out Failed');

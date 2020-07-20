@@ -12,6 +12,7 @@ import Footer from './views/footer/Footer';
 
 import UploadProductPage from 'components/views/uploadProductPage/UploadProductPage';
 import ProductDetailPage from './views/productDetailPage/productDetailPage';
+import CartPage from './views/cartPage/CartPage';
 
 import Auth from '../hoc/auth';
 

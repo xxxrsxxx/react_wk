@@ -8,7 +8,6 @@ let auth = (req, res, next) => {
 		if (err) throw err;
 		if (!user)
 			return res.json({
-				_id: `guest${randomInteger}_${Date.now()}`,
 				isAuth: false,
 				error: true,
 			});
