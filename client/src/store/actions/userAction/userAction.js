@@ -60,11 +60,11 @@ export function getCartItems(cartItems, userCart) {
 		res => {
 			// userData cart items 를 전달 한 후
 			// backend product collection Merge
-
+			let initData = res.data.product;
 			userCart.forEach(cartItem => {
-				res.data.forEach((prdDetail, idx) => {
+				initData.forEach((prdDetail, idx) => {
 					if (cartItem.id === prdDetail._id) {
-						res.data[idx].quantity = cartItem.quantity;
+						initData[idx].quantity = cartItem.quantity;
 					}
 				});
 			});

@@ -47,7 +47,7 @@ const RightMenu = props => {
 							<a
 								href='/user/cart'
 								className='head-example'
-								style={{ marginRight: -22, color: '#667777' }}>
+								style={{ marginRight: -10, color: '#667777' }}>
 								<Icon
 									type='shopping-cart'
 									style={{ fontSize: 30, marginBottom: 3 }}
@@ -57,14 +57,14 @@ const RightMenu = props => {
 					</Menu.Item>
 				) : (
 					<Menu.Item key='cart' style={{ paddingBottom: 3 }}>
-						<a
-							style={{ display: 'inline-block', paddingRight: '10px' }}
-							href='/user/cart'>
+						<a href='/user/cart'>
 							Cart
+							{storeState.user.userData.cart && (
+								<span style={{ paddingLeft: '10px', color: '#1890ff' }}>
+									({storeState.user.userData.cart.length})
+								</span>
+							)}
 						</a>
-						<Badge
-							count={storeState.user.userData && storeState.user.userData.cart.length}
-						/>
 					</Menu.Item>
 				)}
 				<Menu.Item key='logout'>
