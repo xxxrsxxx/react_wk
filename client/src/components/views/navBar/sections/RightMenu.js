@@ -8,7 +8,6 @@ const RightMenu = props => {
 	const dispatch = useDispatch();
 	const storeState = useSelector(state => state);
 	const admin = storeState.user.userData ? storeState.user.userData.isAdmin : false;
-
 	const logoutHandler = () => {
 		dispatch(logoutUser()).then(res => {
 			if (res.payload.success) {
@@ -39,16 +38,35 @@ const RightMenu = props => {
 						<a href='/product/upload'>Upload</a>
 					</Menu.Item>
 				)}
-				<Menu.Item key='cart' style={{ paddingBottom: 3 }}>
-					<Badge count={storeState.user.userData && storeState.user.userData.cart.length}>
+				{props.mode == 'horizontal' ? (
+					<Menu.Item key='cart' style={{ paddingBottom: 3 }}>
+						<Badge
+							count={
+								storeState.user.userData && storeState.user.userData.cart.length
+							}>
+							<a
+								href='/user/cart'
+								className='head-example'
+								style={{ marginRight: -22, color: '#667777' }}>
+								<Icon
+									type='shopping-cart'
+									style={{ fontSize: 30, marginBottom: 3 }}
+								/>
+							</a>
+						</Badge>
+					</Menu.Item>
+				) : (
+					<Menu.Item key='cart' style={{ paddingBottom: 3 }}>
 						<a
-							href='/user/cart'
-							className='head-example'
-							style={{ marginRight: -22, color: '#667777' }}>
-							<Icon type='shopping-cart' style={{ fontSize: 30, marginBottom: 3 }} />
+							style={{ display: 'inline-block', paddingRight: '10px' }}
+							href='/user/cart'>
+							Cart
 						</a>
-					</Badge>
-				</Menu.Item>
+						<Badge
+							count={storeState.user.userData && storeState.user.userData.cart.length}
+						/>
+					</Menu.Item>
+				)}
 				<Menu.Item key='logout'>
 					<a onClick={logoutHandler}>Logout</a>
 				</Menu.Item>
