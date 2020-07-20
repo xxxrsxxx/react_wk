@@ -35,9 +35,10 @@ function App() {
 					<Route exact path='/product/upload' component={Auth(UploadProductPage, true)} />
 					<Route
 						exact
-						path='/product/productView/:productId'
+						path='/product/products_by_id/:productId'
 						component={Auth(ProductDetailPage, null)}
 					/>
+					<Route exact path='/user/cart' component={Auth(CartPage, true)} />
 				</Switch>
 			</div>
 			<Footer />

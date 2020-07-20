@@ -15,7 +15,7 @@ const ProductDetailPage = props => {
 		loadState: false,
 	});
 	useEffect(() => {
-		getApi(`/product/productView?id=${params._id}&type=${params.type}`).then(res => {
+		getApi(`/product/products_by_id?id=${params._id}&type=${params.type}`).then(res => {
 			if (res.data.success) {
 				setDetailConfig({
 					Product: res.data.product[0],

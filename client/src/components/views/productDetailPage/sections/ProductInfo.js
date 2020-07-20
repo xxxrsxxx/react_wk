@@ -1,36 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Descriptions } from 'antd';
 import { postApi } from 'api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { addToCart } from 'store/actions/userAction/userAction';
 const ProductInfo = props => {
 	console.log('ProductInfo Props', props);
 	const user = useSelector(state => state.user.userData);
-	const [CartParams, setCartParams] = useState({
-		userId: null,
-		prdId: null,
-	});
-	useEffect(() => {
-		setCartParams({
-			userId: user._id,
-			prdId: props.detail._id,
-		});
-	}, []);
-	const addCartHandler = async () => {
+	const dispatch = useDispatch();
+	useEffect(() => {}, []);
+	const addCartHandler = () => {
 		let userConfirm = user.isAuth;
 
 		if (!userConfirm) {
-			await alert('로그인 후 이용 가능합니다.');
+			alert('로그인 후 이용 가능합니다.');
 			props.history.push('/login');
 		}
-
-		postApi('cart', { userId: CartParams.userId }).then(res => {
-			console.log('resres', res);
-			if (res.data.success) addToCart();
-		});
-	};
-	const addToCart = () => {
-		postApi('cart/addToCart', CartParams).then(res => console.log('addCart', res));
+		dispatch(addToCart(props.detail._id));
+		alert('Add To Cart');
 	};
 	return (
 		<div>

@@ -104,7 +104,7 @@ const LandingPage = props => {
 			<Col lg={6} sm={12} md={12} xs={24} key={idx}>
 				<Card
 					cover={
-						<a href={`/product/productView/${prd._id}`}>
+						<a href={`/product/products_by_id/${prd._id}`}>
 							<ImageSlider setData={prd}></ImageSlider>
 						</a>
 					}>
@@ -119,7 +119,7 @@ const LandingPage = props => {
 				<h2>Main Contents Page</h2>
 			</div>
 			{/* Filter*/}
-			<Row gutter={[16, 0]}>
+			<Row gutter={[16, 16]}>
 				<Col lg={12} xs={24}>
 					<CheckBox
 						list={options}
