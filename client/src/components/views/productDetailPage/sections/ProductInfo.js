@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Descriptions } from 'antd';
-import { postApi } from 'api';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addToCart } from 'store/actions/userAction/userAction';
@@ -8,7 +7,6 @@ const ProductInfo = props => {
 	console.log('ProductInfo Props', props);
 	const user = useSelector(state => state.user.userData);
 	const dispatch = useDispatch();
-	useEffect(() => {}, []);
 	const addCartHandler = () => {
 		let userConfirm = user.isAuth;
 
@@ -29,7 +27,6 @@ const ProductInfo = props => {
 					{props.detail.description}
 				</Descriptions.Item>
 			</Descriptions>
-
 			<br />
 			<br />
 			<br />

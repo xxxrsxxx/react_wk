@@ -13,8 +13,16 @@ import Footer from './views/footer/Footer';
 import UploadProductPage from 'components/views/uploadProductPage/UploadProductPage';
 import ProductDetailPage from './views/productDetailPage/productDetailPage';
 import CartPage from './views/cartPage/CartPage';
-
+import workBook from 'note/workBook';
 import Auth from '../hoc/auth';
+
+const testDate = {
+	key: 1,
+	num: 10,
+	char: 'char',
+	array: [],
+	obj: {},
+};
 
 function App() {
 	const dispatch = useDispatch();
@@ -39,6 +47,7 @@ function App() {
 						component={Auth(ProductDetailPage, null)}
 					/>
 					<Route exact path='/user/cart' component={Auth(CartPage, true)} />
+					<Route exact path='/workbook' component={workBook} />
 				</Switch>
 			</div>
 			<Footer />

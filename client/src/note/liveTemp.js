@@ -1,18 +1,17 @@
 //importItems
-import {  } from '';
-
+import {} from '';
 
 //rcf
 import React from 'react';
 
-const Test = () => {
+const LiveTemp = () => {
 	console.log('test1');
 };
 
 const Test2 = () => {
 	console.log('test2');
 };
-export default { Test, Test2 };
+export default { Test: LiveTemp, Test2 };
 
 // rcc
 import React, { Component } from 'react';
