@@ -11,17 +11,17 @@ const { Title } = Typography;
 
 const LoginPage = props => {
 	const dispatch = useDispatch();
-	const rememberMeChecked = window.$_storage.getLocal('rememberMe') ? true : false;
+	const rememberIdChecked = window.$_storage.getLocal('rememberId') ? true : false;
 
 	const [formErrorMessage, setFormErrorMessage] = useState('');
-	const [rememberMe, setRememberMe] = useState(rememberMeChecked);
+	const [rememberId, setRememberMe] = useState(rememberIdChecked);
 
-	const handleRememberMe = () => {
-		setRememberMe(!rememberMe);
+	const handleRememberId = () => {
+		setRememberMe(!rememberId);
 	};
 
-	const initialEmail = window.$_storage.getLocal('rememberMe')
-		? window.$_storage.getLocal('rememberMe')
+	const initialEmail = window.$_storage.getLocal('rememberId')
+		? window.$_storage.getLocal('rememberId')
 		: '';
 
 	return (
@@ -47,10 +47,10 @@ const LoginPage = props => {
 						.then(response => {
 							if (response.payload.loginSuccess) {
 								window.$_storage.setLocal('userId', response.payload.userId);
-								if (rememberMe === true) {
-									window.$_storage.setLocal('rememberMe', values.id);
+								if (rememberId === true) {
+									window.$_storage.setLocal('rememberId', values.email);
 								} else {
-									window.$_storage.delLocal('rememberMe');
+									window.$_storage.removeLocal('rememberId');
 								}
 								props.history.push('/');
 							} else {
@@ -143,9 +143,9 @@ const LoginPage = props => {
 
 							<Form.Item>
 								<Checkbox
-									id='rememberMe'
-									onChange={handleRememberMe}
-									checked={rememberMe}>
+									id='rememberId'
+									onChange={handleRememberId}
+									checked={rememberId}>
 									Remember me
 								</Checkbox>
 								<Link

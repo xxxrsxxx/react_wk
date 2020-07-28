@@ -7,15 +7,16 @@ const ProductInfo = props => {
 	console.log('ProductInfo Props', props);
 	const user = useSelector(state => state.user.userData);
 	const dispatch = useDispatch();
-	const addCartHandler = () => {
+	const addCartHandler = async () => {
 		let userConfirm = user.isAuth;
 
 		if (!userConfirm) {
 			alert('로그인 후 이용 가능합니다.');
 			props.history.push('/login');
+		} else {
+			dispatch(addToCart(props.detail._id));
+			alert('Add To Cart');
 		}
-		dispatch(addToCart(props.detail._id));
-		alert('Add To Cart');
 	};
 	return (
 		<div>
