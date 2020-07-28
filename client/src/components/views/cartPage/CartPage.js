@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCartItems, removeCartItem } from 'store/actions/userAction/userAction';
 import ListItem from './sections/ListItem';
-import { Empty, Result } from 'antd';
+
 const CartPage = props => {
 	const dispatch = useDispatch();
-	const user = props.user.userData;
+	const _state = useSelector(state => state.user);
+
 	const [Total, setTotal] = useState(0);
 	const [ShowTotal, setShowTotal] = useState(false);
-	const [ShowSuccess, setShowSuccess] = useState(false);
+
 	useEffect(() => {
 		let cartItems = [];
-		//userData check cart value
-		if (user && user.cart) {
-			if (user.cart.length > 0) {
-				user.cart.forEach(item => {
+		if (_state.userData && _state.userData.cart) {
+			if (_state.userData.cart.length > 0) {
+				_state.userData.cart.forEach(item => {
 					cartItems.push(item.id);
 				});
-				dispatch(getCartItems(cartItems, user.cart)).then(res => {
+				dispatch(getCartItems(cartItems, _state.userData.cart)).then(res => {
 					calculateTotal(res.payload.product);
 				});
 			}
 		}
-	}, [props.user.userData]);
+	}, [_state.userData]);
 
-	let calculateTotal = cartDetail => {
+	const calculateTotal = cartDetail => {
 		let total = 0;
 
 		cartDetail.map(item => {
@@ -35,7 +35,7 @@ const CartPage = props => {
 		setShowTotal(true);
 	};
 
-	let removeFromCart = productId => {
+	const removeFromCart = productId => {
 		dispatch(removeCartItem(productId)).then(res => {
 			if (res.payload.productInfo.length <= 0) {
 				setShowTotal(false);
@@ -48,20 +48,12 @@ const CartPage = props => {
 			<h1>Cart Page</h1>
 
 			<div>
-				<ListItem products={props.user.cartDetail} removeItem={removeFromCart} />
+				<ListItem products={_state.cartDetail} removeItem={removeFromCart} />
 			</div>
-
-			{ShowTotal ? (
+			{ShowTotal && (
 				<div style={{ marginTop: '3rem' }}>
 					<h2>Total Amount: ${Total}</h2>
 				</div>
-			) : ShowSuccess ? (
-				<Result status='success' title='Successfully Purchased Items' />
-			) : (
-				<>
-					<br />
-					<Empty description={false} />
-				</>
 			)}
 		</div>
 	);
