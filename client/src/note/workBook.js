@@ -14,15 +14,22 @@ class WorkBook extends React.Component {
 			},
 			num: 0,
 		};
-		const { closer } = this;
-		const test1 = closer();
-		test1.init();
+		/*
+		 * closer Type
+		 * methods, callback
+		 * */
+		const { closer, closer2 } = this;
+		const newCloser1 = closer();
+		newCloser1.init();
+		const newCloser2 = closer2(1);
+		newCloser2(2);
 	}
 	componentDidMount() {
 		console.log('componentDidMount');
 	}
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		console.log('componentDidUpdate');
+		const { state } = this;
+		console.log('componentDidUpdate', state, 'prevState', prevState);
 	}
 	componentWillUnmount() {
 		//componentWillUnmount()는 컴포넌트가 마운트 해제되어 제거되기 직전에 호출됩니다. 이 메서드 내에서 타이머 제거,
@@ -37,7 +44,7 @@ class WorkBook extends React.Component {
 			num: 0,
 			array: [],
 		};
-		const closerInit = () => {
+		const init = () => {
 			console.log('closer init', initialValues);
 			reFormat();
 		};
@@ -50,10 +57,18 @@ class WorkBook extends React.Component {
 			state.option.array = newArray;
 		};
 		return {
-			init: closerInit,
+			init,
 		};
 	};
-	testhandler = () => {
+	closer2 = x => {
+		const state = {
+			x,
+		};
+		return function (y) {
+			console.log('closer2', x, y, '\nstate', state);
+		};
+	};
+	stateHandler = () => {
 		this.setState(current => ({ num: current.num + 1 }));
 	};
 	render() {
@@ -79,7 +94,9 @@ class WorkBook extends React.Component {
 					</Col>
 					<Col>
 						<div>
-							<button onClick={this.testhandler}>testHandler {this.state.num}</button>
+							<button onClick={this.stateHandler}>
+								testHandler {this.state.num}
+							</button>
 						</div>
 					</Col>
 				</Row>
