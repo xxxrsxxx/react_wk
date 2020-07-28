@@ -9,7 +9,6 @@ const CartPage = props => {
 	const [Total, setTotal] = useState(0);
 	const [ShowTotal, setShowTotal] = useState(false);
 	const [ShowSuccess, setShowSuccess] = useState(false);
-	console.log('CartPage', props);
 	useEffect(() => {
 		let cartItems = [];
 		//userData check cart value

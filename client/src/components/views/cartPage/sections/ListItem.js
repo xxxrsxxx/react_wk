@@ -7,7 +7,6 @@ const ListItem = props => {
 			return `/${image}`;
 		}
 	};
-	console.log('LIst', props);
 	const renderItems = () =>
 		props.products &&
 		props.products.product.map((product, index) => (
