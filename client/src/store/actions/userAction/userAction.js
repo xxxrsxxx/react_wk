@@ -56,7 +56,6 @@ export async function addToCart(_id) {
 	};
 }
 export function getCartItems(cartItems, userCart) {
-	console.log('cartItems', cartItems);
 	const request = getApi(`${PRODUCT_SERVER}/products_by_id?id=${cartItems}&type=array`).then(
 		res => {
 			// userData cart items 를 전달 한 후
