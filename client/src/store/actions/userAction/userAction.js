@@ -6,6 +6,7 @@ import {
 	LOGOUT_USER,
 	ADD_TO_CART,
 	GET_CART_ITEMS,
+	REMOVE_CART_ITEM,
 } from '../types';
 import { USER_SERVER, PRODUCT_SERVER } from 'api/config';
 import { getApi, postApi } from 'api/index';
@@ -74,6 +75,22 @@ export function getCartItems(cartItems, userCart) {
 
 	return {
 		type: GET_CART_ITEMS,
+		payload: request,
+	};
+}
+export function removeCartItem(productId) {
+	const request = getApi(`cart/removeFromCart?id=${productId}`).then(res => {
+		res.data.cart.forEach(item => {
+			res.data.productInfo.forEach((product, index) => {
+				if (item.id === product._id) {
+					res.data.productInfo[index].quantity = item.quantity;
+				}
+			});
+		});
+		return res.data;
+	});
+	return {
+		type: REMOVE_CART_ITEM,
 		payload: request,
 	};
 }

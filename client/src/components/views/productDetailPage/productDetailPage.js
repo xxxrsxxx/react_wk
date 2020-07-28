@@ -11,15 +11,14 @@ const ProductDetailPage = props => {
 		type: 'single',
 	};
 	const [DetailConfig, setDetailConfig] = useState({
-		Product: {},
+		product: {},
 		loadState: false,
 	});
 	useEffect(() => {
 		getApi(`/product/products_by_id?id=${params._id}&type=${params.type}`).then(res => {
-			console.log('res', res);
 			if (res.data.success) {
 				setDetailConfig({
-					Product: res.data.product[0],
+					product: res.data.product[0],
 					loadState: true,
 				});
 			} else {
@@ -33,17 +32,17 @@ const ProductDetailPage = props => {
 			{DetailConfig.loadState ? (
 				<React.Fragment>
 					<div style={{ display: 'flex', justifyContent: 'center' }}>
-						<h1>{DetailConfig.Product.title}</h1>
+						<h1>{DetailConfig.product.title}</h1>
 					</div>
 					<br />
 					<Row gutter={[16, 16]}>
 						<Col lg={12} sm={24}>
 							{/* ProductImage */}
-							<ProductImage detail={DetailConfig.Product} />
+							<ProductImage detail={DetailConfig.product} />
 						</Col>
 						<Col lg={12} sm={24}>
 							{/* ProductInfo */}
-							<ProductInfo detail={DetailConfig.Product} />
+							<ProductInfo detail={DetailConfig.product} />
 						</Col>
 					</Row>
 				</React.Fragment>

@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { Menu, Icon, Badge } from 'antd';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from 'store/actions/userAction/userAction';
+
+import { Menu, Icon, Badge } from 'antd';
+
 const RightMenu = props => {
 	const dispatch = useDispatch();
 	const storeState = useSelector(state => state);
@@ -11,7 +13,7 @@ const RightMenu = props => {
 	const logoutHandler = () => {
 		dispatch(logoutUser()).then(res => {
 			if (res.payload.success) {
-				window.localStorage.removeItem('userId');
+				window.$_storage.removeLocal('userId');
 				props.history.push('/login');
 			} else {
 				alert('Log Out Failed');
@@ -23,10 +25,10 @@ const RightMenu = props => {
 		return (
 			<Menu mode={props.mode}>
 				<Menu.Item key='mail'>
-					<a href='/login'>SignIn</a>
+					<Link to='/login'>SignIn</Link>
 				</Menu.Item>
 				<Menu.Item key='app'>
-					<a href='/register'>SignUp</a>
+					<Link to='/register'>SignUp</Link>
 				</Menu.Item>
 			</Menu>
 		);
@@ -35,7 +37,7 @@ const RightMenu = props => {
 			<Menu mode={props.mode}>
 				{admin == true && (
 					<Menu.Item key='upload'>
-						<a href='/product/upload'>Upload</a>
+						<Link to='/product/upload'>Upload</Link>
 					</Menu.Item>
 				)}
 				{props.mode == 'horizontal' ? (
@@ -44,27 +46,27 @@ const RightMenu = props => {
 							count={
 								storeState.user.userData && storeState.user.userData.cart.length
 							}>
-							<a
-								href='/user/cart'
+							<Link
+								to='/user/cart'
 								className='head-example'
 								style={{ marginRight: -10, color: '#667777' }}>
 								<Icon
 									type='shopping-cart'
 									style={{ fontSize: 30, marginBottom: 3 }}
 								/>
-							</a>
+							</Link>
 						</Badge>
 					</Menu.Item>
 				) : (
 					<Menu.Item key='cart' style={{ paddingBottom: 3 }}>
-						<a href='/user/cart'>
+						<Link to='/user/cart'>
 							Cart
 							{storeState.user.userData.cart && (
 								<span style={{ paddingLeft: '10px', color: '#1890ff' }}>
 									({storeState.user.userData.cart.length})
 								</span>
 							)}
-						</a>
+						</Link>
 					</Menu.Item>
 				)}
 				<Menu.Item key='logout'>

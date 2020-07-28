@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { uiState } from 'store/actions/uiAction/uiAction';

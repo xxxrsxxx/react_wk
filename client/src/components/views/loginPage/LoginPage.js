@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { loginUser } from 'store/actions/userAction/userAction';
 
 import { Formik } from 'formik';
@@ -11,7 +11,7 @@ const { Title } = Typography;
 
 const LoginPage = props => {
 	const dispatch = useDispatch();
-	const rememberMeChecked = localStorage.getItem('rememberMe') ? true : false;
+	const rememberMeChecked = window.$_storage.getLocal('rememberMe') ? true : false;
 
 	const [formErrorMessage, setFormErrorMessage] = useState('');
 	const [rememberMe, setRememberMe] = useState(rememberMeChecked);
@@ -20,8 +20,8 @@ const LoginPage = props => {
 		setRememberMe(!rememberMe);
 	};
 
-	const initialEmail = localStorage.getItem('rememberMe')
-		? localStorage.getItem('rememberMe')
+	const initialEmail = window.$_storage.getLocal('rememberMe')
+		? window.$_storage.getLocal('rememberMe')
 		: '';
 
 	return (
@@ -46,11 +46,11 @@ const LoginPage = props => {
 					dispatch(loginUser(dataToSubmit))
 						.then(response => {
 							if (response.payload.loginSuccess) {
-								window.localStorage.setItem('userId', response.payload.userId);
+								window.$_storage.setLocal('userId', response.payload.userId);
 								if (rememberMe === true) {
-									window.localStorage.setItem('rememberMe', values.id);
+									window.$_storage.setLocal('rememberMe', values.id);
 								} else {
-									localStorage.removeItem('rememberMe');
+									window.$_storage.delLocal('rememberMe');
 								}
 								props.history.push('/');
 							} else {
@@ -79,17 +79,17 @@ const LoginPage = props => {
 					handleReset,
 				} = props;
 				return (
-					<div className="app">
+					<div className='app'>
 						<Title level={2}>Log In</Title>
 						<form onSubmit={handleSubmit} style={{ width: '350px' }}>
 							<Form.Item required>
 								<Input
-									id="email"
+									id='email'
 									prefix={
-										<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+										<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />
 									}
-									placeholder="Enter your email"
-									type="email"
+									placeholder='Enter your email'
+									type='email'
 									value={values.email}
 									onChange={handleChange}
 									onBlur={handleBlur}
@@ -100,18 +100,18 @@ const LoginPage = props => {
 									}
 								/>
 								{errors.email && touched.email && (
-									<div className="input-feedback">{errors.email}</div>
+									<div className='input-feedback'>{errors.email}</div>
 								)}
 							</Form.Item>
 
 							<Form.Item required>
 								<Input
-									id="password"
+									id='password'
 									prefix={
-										<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+										<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
 									}
-									placeholder="Enter your password"
-									type="password"
+									placeholder='Enter your password'
+									type='password'
 									value={values.password}
 									onChange={handleChange}
 									onBlur={handleBlur}
@@ -122,7 +122,7 @@ const LoginPage = props => {
 									}
 								/>
 								{errors.password && touched.password && (
-									<div className="input-feedback">{errors.password}</div>
+									<div className='input-feedback'>{errors.password}</div>
 								)}
 							</Form.Item>
 
@@ -143,29 +143,29 @@ const LoginPage = props => {
 
 							<Form.Item>
 								<Checkbox
-									id="rememberMe"
+									id='rememberMe'
 									onChange={handleRememberMe}
 									checked={rememberMe}>
 									Remember me
 								</Checkbox>
-								<a
-									className="login-form-forgot"
-									href="/reset_user"
+								<Link
+									className='login-form-forgot'
+									to='/reset_user'
 									style={{ float: 'right' }}>
 									forgot password
-								</a>
+								</Link>
 								<div>
 									<Button
-										type="primary"
-										htmlType="submit"
-										className="login-form-button"
+										type='primary'
+										htmlType='submit'
+										className='login-form-button'
 										style={{ minWidth: '100%' }}
 										disabled={isSubmitting}
 										onSubmit={handleSubmit}>
 										Log in
 									</Button>
 								</div>
-								Or <a href="/register">register now!</a>
+								Or <Link to='/register'>register now!</Link>
 							</Form.Item>
 						</form>
 					</div>

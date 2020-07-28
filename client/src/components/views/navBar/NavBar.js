@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import logo from 'assets/images/logo.svg';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import LeftMenu from './sections/LeftMenu';
 import RightMenu from './sections/RightMenu';
-import { Drawer, Button, Icon } from 'antd';
 
+import { Drawer, Button, Icon } from 'antd';
 import './sections/Navbar.css';
-import { useSelector } from 'react-redux';
+import logo from 'assets/images/logo.svg';
 const NavBar = () => {
 	const [visible, setVisible] = useState(false);
 	const member = useSelector(state => state.user.userData);
@@ -22,9 +24,9 @@ const NavBar = () => {
 			className='menu'
 			style={{ position: 'fixed', width: '100%', overflow: 'initial', zIndex: 5 }}>
 			<div className='menu__logo'>
-				<a href='/'>
+				<Link to='/'>
 					<img src={logo} alt='#' />
-				</a>
+				</Link>
 			</div>
 			<div className='menu__container'>
 				<div className='menu_left'>

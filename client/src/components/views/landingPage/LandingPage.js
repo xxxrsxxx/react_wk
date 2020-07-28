@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PRODUCT_SERVER } from 'api/config';
-import { getApi, postApi } from 'api/index';
+import { postApi } from 'api/index';
 
 import ImageSlider from 'components/utils/ImageSlider';
 import { Icon, Col, Card, Row } from 'antd';
@@ -42,7 +43,6 @@ const LandingPage = props => {
 
 	const getProducts = config => {
 		postApi(`${PRODUCT_SERVER}/products`, config).then(res => {
-			console.log('api logic\n', LoadPrdConfig, '\n', res.data);
 			if (LoadPrdConfig.loadMore) setPrdList([...PrdList, ...res.data.productsInfo]);
 			else setPrdList(res.data.productsInfo);
 
@@ -104,9 +104,9 @@ const LandingPage = props => {
 			<Col lg={6} sm={12} md={12} xs={24} key={idx}>
 				<Card
 					cover={
-						<a href={`/product/products_by_id/${prd._id}`}>
+						<Link to={`/product/products_by_id/${prd._id}`}>
 							<ImageSlider setData={prd}></ImageSlider>
-						</a>
+						</Link>
 					}>
 					<Meta title={prd.title} description={`$${prd.price}`}></Meta>
 				</Card>

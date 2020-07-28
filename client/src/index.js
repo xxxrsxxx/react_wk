@@ -15,8 +15,12 @@ import Reducer from './store/reducers/';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 
+import { $_storage } from './common/util';
+
 import 'antd/dist/antd.css';
 import './index.css';
+
+window.$_storage = $_storage();
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 ReactDOM.render(
