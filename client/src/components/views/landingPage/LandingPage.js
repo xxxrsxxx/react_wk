@@ -137,6 +137,7 @@ const LandingPage = props => {
 			<div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
 				<SearchFeature
 					refreshFunction={search => loadProduct('updateSearchTerm', search)}
+					route={props}
 				/>
 			</div>
 			{LoadPrdState.loadState ? (
