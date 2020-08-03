@@ -15,7 +15,6 @@ const s3 = new AWS.S3({
 	secretAccessKey: config.AWS_SECRET,
 });
 
-console.log('s3', config);
 const storage = multer.memoryStorage({
 	destination: function (req, file, cb) {
 		cb(null, '');

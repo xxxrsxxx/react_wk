@@ -10,8 +10,8 @@ const LeftMenu = props => {
 			<Menu.Item key='mail'>
 				<Link to='/'>Home</Link>
 			</Menu.Item>
-			<SubMenu title={<span>Board</span>}>
-				<MenuItemGroup title='Board 1'>
+			<SubMenu title={<span>Other</span>}>
+				<MenuItemGroup title='Board'>
 					<Menu.Item key='write'>
 						<Link to='/bbs/write'>write</Link>
 					</Menu.Item>
