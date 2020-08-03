@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
 const { Search } = Input;
+
 const SearchFeature = props => {
 	const [SearchTrigger, setSearchTrigger] = useState(false);
 	const [SearchTerm, setSearchTerm] = useState('');
