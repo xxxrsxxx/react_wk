@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { postApi } from 'api/index';
 import { Form, Icon, Input } from 'antd';
@@ -18,10 +18,16 @@ const BoardPage = props => {
 	const formDataHandler = e => {
 		switch (e.target.name) {
 			case 'title':
-				setFormObj({ ...FormObj, title: e.currentTarget.value });
+				setFormObj({
+					...FormObj,
+					title: e.currentTarget.value,
+				});
 				break;
 			case 'contents':
-				setFormObj({ ...FormObj, contents: e.currentTarget.value });
+				setFormObj({
+					...FormObj,
+					contents: e.currentTarget.value,
+				});
 				break;
 			default:
 				setFormObj({ ...FormObj });
@@ -39,7 +45,10 @@ const BoardPage = props => {
 		postApi(`/board/upload`, formData, config)
 			.then(res => {
 				if (res.data.success) {
-					setFormObj({ ...FormObj, file: [...FormObj.file, res.data.imgUrl] });
+					setFormObj({
+						...FormObj,
+						file: [...FormObj.file, res.data.imgUrl],
+					});
 				} else {
 					alert('file error');
 				}
@@ -57,7 +66,13 @@ const BoardPage = props => {
 		let newArray = [...FormObj.file];
 		newArray.splice(currentIndex, 1);
 		setFormObj({ ...FormObj, file: newArray });
-		console.log('delete', file);
+
+		const string = file.replace('https://xx-bucket.s3.amazonaws.com/', '');
+		postApi(`/board/delete`, { file: string }).then(res => {
+			if (res.data.success) {
+				console.log('s3 delete object');
+			}
+		});
 	};
 	/**
 	 * @dsc 게시판 폼 전송
@@ -75,7 +90,7 @@ const BoardPage = props => {
 			file: FormObj.file,
 		};
 
-		if (FormObj.title == '' || FormObj.contents == '') {
+		if (config.title === '' || config.contents === '') {
 			alert('제목,내용 필수 입력');
 			return;
 		}
@@ -138,7 +153,11 @@ const BoardPage = props => {
 						<div
 							key={i}
 							className={'list'}
-							style={{ position: 'relative', width: '300px', height: 'auto' }}>
+							style={{
+								position: 'relative',
+								width: '300px',
+								height: 'auto',
+							}}>
 							<img src={el} alt='img' />
 							<a
 								href='#'

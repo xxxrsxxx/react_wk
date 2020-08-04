@@ -49,6 +49,20 @@ router.post('/upload', upload, (req, res) => {
 		}
 	});
 });
+router.post('/delete', (req, res) => {
+	const params = {
+		Bucket: config.AWS_BUCKET_NAME,
+		Key: req.body.file,
+	};
+	s3.deleteObject(params, (err, data) => {
+		if (err)
+			return res.status(400).json({
+				success: false,
+				err,
+			});
+		res.status(200).json({ success: true });
+	});
+});
 router.get('/', (req, res) => {
 	Board.find({})
 		.sort('-createdAt')
@@ -63,7 +77,7 @@ router.get('/', (req, res) => {
 		});
 });
 router.post('/write', (req, res) => {
-	console.log('write', req.body);
+	//console.log('write', req.body);
 	const board = new Board(req.body);
 	board.save(err => {
 		if (err)

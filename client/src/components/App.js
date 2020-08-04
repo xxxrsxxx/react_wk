@@ -18,14 +18,6 @@ import CartPage from './views/cartPage/CartPage';
 import workBook from 'note/workBook';
 import Auth from '../hoc/auth';
 
-const testDate = {
-	key: 1,
-	num: 10,
-	char: 'char',
-	array: [],
-	obj: {},
-};
-
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
