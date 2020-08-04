@@ -11,7 +11,8 @@ import NavBar from './views/navBar/NavBar';
 import Footer from './views/footer/Footer';
 
 import UploadProductPage from 'components/views/uploadProductPage/UploadProductPage';
-import WriteBbsPage from 'components/views/writeBbsPage/WriteBbsPage';
+import BoardPage from 'components/views/boardPage/BoardPage';
+import BoardWritePage from 'components/views/boardWritePage/BoardWritePage';
 import ProductDetailPage from './views/productDetailPage/productDetailPage';
 import CartPage from './views/cartPage/CartPage';
 import workBook from 'note/workBook';
@@ -42,7 +43,8 @@ function App() {
 					<Route exact path='/login' component={Auth(LoginPage, false)} />
 					<Route exact path='/register' component={Auth(RegisterPage, false)} />
 					<Route exact path='/product/upload' component={Auth(UploadProductPage, true)} />
-					<Route exact path='/bbs/write' component={Auth(WriteBbsPage, true)} />
+					<Route exact path='/board' component={Auth(BoardPage, true)} />
+					<Route exact path='/board/write' component={Auth(BoardWritePage, true)} />
 					<Route
 						exact
 						path='/product/products_by_id/:productId'

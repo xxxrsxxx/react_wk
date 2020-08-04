@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { postApi } from 'api/index';
 import { Form, Icon, Input } from 'antd';
 import Dropzone from 'react-dropzone';
 const { TextArea } = Input;
 
-const WriteBbsPage = props => {
+const BoardPage = props => {
 	const user = useSelector(state => state.user);
 	const [FormObj, setFormObj] = useState({
 		title: '',
-		description: '',
-		images: [],
+		contents: '',
+		file: [],
 	});
 	/**
 	 * @dsc formData state setting
@@ -20,8 +20,8 @@ const WriteBbsPage = props => {
 			case 'title':
 				setFormObj({ ...FormObj, title: e.currentTarget.value });
 				break;
-			case 'dsc':
-				setFormObj({ ...FormObj, description: e.currentTarget.value });
+			case 'contents':
+				setFormObj({ ...FormObj, contents: e.currentTarget.value });
 				break;
 			default:
 				setFormObj({ ...FormObj });
@@ -39,7 +39,7 @@ const WriteBbsPage = props => {
 		postApi(`/board/upload`, formData, config)
 			.then(res => {
 				if (res.data.success) {
-					setFormObj({ ...FormObj, images: [...FormObj.images, res.data.imgUrl] });
+					setFormObj({ ...FormObj, file: [...FormObj.file, res.data.imgUrl] });
 				} else {
 					alert('file error');
 				}
@@ -49,40 +49,51 @@ const WriteBbsPage = props => {
 	/**
 	 * @dsc 미리보기 리스트 제거
 	 * @param { object } click event
-	 * @param { string } drop img url
+	 * @param { string } drop file url
 	 **/
-	const deleteHandler = (event, img) => {
+	const deleteHandler = (event, file) => {
 		event.preventDefault();
-		const currentIndex = FormObj.images.indexOf(img);
-		let newImages = [...FormObj.images];
-		newImages.splice(currentIndex, 1);
-		setFormObj({ ...FormObj, images: newImages });
+		const currentIndex = FormObj.file.indexOf(file);
+		let newArray = [...FormObj.file];
+		newArray.splice(currentIndex, 1);
+		setFormObj({ ...FormObj, file: newArray });
+		console.log('delete', file);
 	};
 	/**
 	 * @dsc 게시판 폼 전송
 	 **/
+	let commit = true;
 	const submitHandler = e => {
 		e.preventDefault();
-		let i = 0;
-		for (let e in FormObj) {
-			if (!FormObj[e] && i == 0) {
-				alert('empty');
-				i++;
-			}
-		}
-		if (i != 0) return;
 
+		if (!commit) return;
 		const config = {
 			writer: user.userData._id,
+			name: user.userData.name,
 			title: FormObj.title,
-			description: FormObj.description,
-			images: FormObj.images,
+			contents: FormObj.contents,
+			file: FormObj.file,
 		};
+
+		if (FormObj.title == '' || FormObj.contents == '') {
+			alert('제목,내용 필수 입력');
+			return;
+		}
+		postApi('/board/write', config).then(res => {
+			if (res.data.success) {
+				alert('Add Comment');
+				props.history.push('/board');
+			} else {
+				alert('Add Comment Failed');
+			}
+			commit = true;
+		});
+		commit = false;
 	};
 	return (
 		<div style={{ maxWidth: '700px', margin: '2rem auto' }}>
 			<div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-				<h2>게시판 글쓰기 개발 중</h2>
+				<h2>Board Write</h2>
 			</div>
 			<Form onSubmit={submitHandler}>
 				<label htmlFor='title'>제목</label>
@@ -93,12 +104,12 @@ const WriteBbsPage = props => {
 					onChange={formDataHandler}
 					value={FormObj.title}
 				/>
-				<label htmlFor='dsc'>내용</label>
+				<label htmlFor='contents'>내용</label>
 				<TextArea
-					id='dsc'
-					name='dsc'
+					id='contents'
+					name='contents'
 					onChange={formDataHandler}
-					value={FormObj.description}
+					value={FormObj.contents}
 					style={{ height: '200px' }}
 				/>
 				<br />
@@ -123,7 +134,7 @@ const WriteBbsPage = props => {
 				</Dropzone>
 				<br />
 				<div className={'upload_list'} style={{ display: 'flex' }}>
-					{FormObj.images.map((el, i) => (
+					{FormObj.file.map((el, i) => (
 						<div
 							key={i}
 							className={'list'}
@@ -147,10 +158,10 @@ const WriteBbsPage = props => {
 				</div>
 				<br />
 				<br />
-				<button type='submit'>confirm</button>
+				<button type='submit'>Add Comment</button>
 			</Form>
 		</div>
 	);
 };
 
-export default WriteBbsPage;
+export default BoardPage;

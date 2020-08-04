@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 const SubMenu = Menu.SubMenu;
@@ -12,10 +13,9 @@ const LeftMenu = props => {
 			</Menu.Item>
 			<SubMenu title={<span>Other</span>}>
 				<MenuItemGroup title='Board'>
-					<Menu.Item key='write'>
-						<Link to='/bbs/write'>write</Link>
+					<Menu.Item key='board'>
+						<Link to='/board'>view</Link>
 					</Menu.Item>
-					<Menu.Item key='view'>view</Menu.Item>
 				</MenuItemGroup>
 				{/*<MenuItemGroup title='Item 2'>*/}
 				{/*	<Menu.Item key='setting:3'>Option 3</Menu.Item>*/}
@@ -25,5 +25,7 @@ const LeftMenu = props => {
 		</Menu>
 	);
 };
-
+LeftMenu.prototype = {
+	mode: PropTypes.string,
+};
 export default LeftMenu;

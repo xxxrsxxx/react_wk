@@ -25,13 +25,16 @@ router.post('/upload', upload, (req, res) => {
 	let myFile = req.file.originalname.split('.');
 	const fileType = myFile[myFile.length - 1];
 
-	console.log('req.file', req.file, '\n', myFile, '\n', fileType);
+	//console.log('req.file', req.file, '\n', myFile, '\n', fileType);
+
+	let contentType = fileType === 'zip' ? `application/zip` : `image/${fileType}`;
+
 	const params = {
 		Bucket: config.AWS_BUCKET_NAME,
 		Key: `${uuidv4()}.${fileType}`,
 		ACL: 'public-read',
 		Body: req.file.buffer,
-		ContentType: `image/${fileType}`,
+		ContentType: contentType,
 	};
 	s3.upload(params, (error, data) => {
 		if (error) {
@@ -39,10 +42,28 @@ router.post('/upload', upload, (req, res) => {
 				success: false,
 			});
 		}
-		res.status(200).json({ success: true, key: data.Key, imgUrl: data.Location });
+		if (fileType !== 'zip') {
+			res.status(200).json({ success: true, key: data.Key, imgUrl: data.Location });
+		} else {
+			res.status(200).json({ success: true, key: data.Key, zipUrl: data.Location });
+		}
 	});
 });
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
+	Board.find({})
+		.sort('-createdAt')
+		.exec((err, board) => {
+			console.log('board get', err, board);
+			if (err)
+				return res.status(400).json({
+					success: false,
+					err,
+				});
+			res.status(200).json({ success: true, board: board });
+		});
+});
+router.post('/write', (req, res) => {
+	console.log('write', req.body);
 	const board = new Board(req.body);
 	board.save(err => {
 		if (err)
@@ -52,5 +73,6 @@ router.post('/', (req, res) => {
 			});
 		return res.status(200).json({ success: true });
 	});
+	//res.redirect('/api/board');
 });
 module.exports = router;

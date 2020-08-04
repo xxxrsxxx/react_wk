@@ -1,0 +1,11 @@
+.board_container {
+}
+.board_controller {
+	display: flex;
+	justify-content: flex-end;
+}
+.write {
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+}

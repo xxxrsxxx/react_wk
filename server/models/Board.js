@@ -7,14 +7,22 @@ const boardSchema = mongoose.Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'User',
 		},
+		name: {
+			type: String,
+		},
 		title: {
 			type: String,
 			maxlength: 50,
 		},
-		description: {
+		contents: {
 			type: String,
 		},
-		images: {
+		createdAt: {
+			type: Date,
+			default: Date.now(),
+		},
+		updatedAt: { type: Date },
+		file: {
 			type: Array,
 			default: [],
 		},
